@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Recipe } from "./components/Recipe";
-import { Error } from "./components/Error";
+import { Loading } from "./components/Loading";
 import "./style.scss";
 
 export const App = () => {
@@ -56,7 +56,7 @@ export const App = () => {
           search
         </button>
       </form>
-      {recipe.length ? <div className="recipes">{recipe}</div> : <Error />}
+      {recipe.length ? <div className="recipes">{recipe}</div> : <Loading />}
     </div>
   );
 };
