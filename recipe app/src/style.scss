@@ -1,0 +1,91 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  outline: 0;
+  border: 0;
+}
+
+html {
+  font-size: 62.5%;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+body {
+  background: #ebf3ff;
+}
+
+.search-form {
+  display: flex;
+  max-width: 60rem;
+  width: 100%;
+  margin: 3rem auto 2rem;
+  background: #fff;
+  padding: 1.5rem;
+
+  .search-input {
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    font-size: 2rem;
+    border: 0.2rem solid #eee;
+  }
+  .submit-btn {
+    background: #f00;
+    padding: 0.5rem 2rem;
+    font-size: 1.6rem;
+    text-transform: capitalize;
+    color: #fff;
+    margin-left: 0.7rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+  }
+}
+
+.recipes {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(27rem, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+  .recipe {
+    border: 0.1rem solid #eee;
+    background: #fff;
+    padding: 1rem;
+    img {
+      width: 100%;
+      text-align: center;
+    }
+    h1 {
+      font-weight: normal;
+      font-size: 2rem;
+      padding: 1rem 0;
+    }
+    p {
+      font-size: 1.5rem;
+      color: #777;
+    }
+  }
+}
+
+.error {
+  padding: 1rem 0;
+  h1 {
+    text-align: center;
+    color: #f00;
+    font-size: 2.5rem;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  html {
+    font-size: 55%;
+  }
+  .search-form {
+    width: 95%;
+    padding: 1rem;
+    margin: 2rem auto;
+  }
+}
