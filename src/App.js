@@ -4,8 +4,11 @@ import { Loading } from "./components/Loading";
 import "./style.scss";
 
 export const App = () => {
-  const APP_ID = "4dc45330";
-  const APP_KEY = "b9cde236f4b6c780bb64ea506b87f91a";
+  // const APP_ID = "bac8feca";
+  // const APP_KEY = "55e775bcecff22df31d75fd19ff89e4f";
+  const APP_ID = process.env.REACT_APP_EDAMAM_ID;
+  const APP_KEY = process.env.REACT_APP_EDAMAM_KEY;
+  const USER_ID = process.env.REACT_APP_EDAMAM_USER;
 
   let [recipes, setRecipes] = useState([]);
   let [search, setSearch] = useState("");
@@ -17,8 +20,16 @@ export const App = () => {
 
   let getRecipes = async () => {
     try {
+      // let res = await fetch(
+      //   `https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}`
+      // );
       let res = await fetch(
-        `https://api.edamam.com/search?q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}`
+        `https://api.edamam.com/api/recipes/v2?type=public&q=${query}&app_id=${APP_ID}&app_key=${APP_KEY}`,
+        {
+          headers: {
+            "Edamam-Account-User": USER_ID,
+          },
+        }
       );
       let data = await res.json();
       setRecipes(data.hits);
@@ -33,11 +44,19 @@ export const App = () => {
 
   let getSearchRecipes = (e) => {
     e.preventDefault();
+    if (!search.trim()) return;
     setQuery(search);
     setSearch("");
   };
 
-  let recipe = recipes.map(({ recipe }) => (
+  let resetSearch = () => {
+    if (!search && query === "chicken") return;
+    setSearch("");
+    setQuery("chicken"); // default query
+    setRecipes([]);
+  };
+
+  let recipe = recipes?.map(({ recipe }) => (
     <Recipe key={Math.random() * 1} {...recipe} />
   ));
 
@@ -54,6 +73,14 @@ export const App = () => {
         />
         <button type="submit" className="submit-btn">
           search
+        </button>
+        <button
+          type="button"
+          className="reset-btn"
+          onClick={resetSearch}
+          disabled={!search && query === "chicken"}
+        >
+          Reset
         </button>
       </form>
       {recipe.length ? <div className="recipes">{recipe}</div> : <Loading />}
